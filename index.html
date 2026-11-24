@@ -1,96 +1,778 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edson Barrena | Programación y Diseño</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
-      line-height: 1.6;
-    }
-    header {
-      text-align: center;
-      padding: 80px 20px;
-      background: linear-gradient(135deg, #1e3a8a, #0f172a);
-    }
-    header h1 { font-size: 2.5rem; margin-bottom: 10px; }
-    header p { font-size: 1.2rem; color: #93c5fd; }
-    section { max-width: 900px; margin: 0 auto; padding: 50px 20px; }
-    h2 { color: #60a5fa; margin-bottom: 20px; }
-    .servicios {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-    }
-    .tarjeta {
-      background: #1e293b;
-      padding: 25px;
-      border-radius: 12px;
-      border: 1px solid #334155;
-    }
-    .tarjeta h3 { color: #fff; margin-bottom: 10px; }
-    a { color: #60a5fa; }
-    footer {
-      text-align: center;
-      padding: 30px;
-      background: #020617;
-      color: #94a3b8;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edson Barrena | Diseño y desarrollo web y móvil</title>
+<meta name="description" content="Diseño y programo páginas web, apps y aplicaciones móviles.">
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fondo: #0a0e17; --panel: #111827; --panel2: #172033; --borde: #243049;
+    --tinta: #e8ecf5; --suave: #98a2b8;
+    --azul: #5b8cff; --menta: #3ddbb0; --ambar: #f2b84b; --rojo: #ff6b7a;
+    --titulos: "Bricolage Grotesque", Georgia, serif;
+    --texto: "Figtree", Arial, sans-serif;
+    --curva: cubic-bezier(.2, .8, .2, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+  body { font-family: var(--texto); background: var(--fondo); color: var(--tinta); line-height: 1.65; overflow-x: hidden; }
+  a { color: inherit; }
+  button, input, select { font-family: inherit; }
+  :focus-visible { outline: 2px solid var(--azul); outline-offset: 3px; }
+  .contenedor { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+  #scroll { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 20; background: var(--azul); transform: scaleX(0); transform-origin: left; }
+
+  /* Navegación */
+  nav { position: sticky; top: 0; z-index: 10; background: rgba(10, 14, 23, .8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--borde); }
+  nav .contenedor { display: flex; justify-content: space-between; align-items: center; height: 64px; }
+  .logo { font-family: var(--titulos); font-weight: 800; font-size: 1.2rem; text-decoration: none; }
+  nav ul { display: flex; gap: 26px; list-style: none; }
+  nav ul a { text-decoration: none; font-weight: 500; color: var(--suave); position: relative; padding: 4px 0; transition: color .3s; }
+  nav ul a:hover { color: var(--tinta); }
+  nav ul a::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: var(--azul); transform: scaleX(0); transform-origin: left; transition: transform .35s var(--curva); }
+  nav ul a:hover::after, nav ul a:focus-visible::after { transform: scaleX(1); }
+
+  /* Botones */
+  .botones { display: flex; gap: 14px; flex-wrap: wrap; }
+  .boton { display: inline-block; padding: 13px 28px; border-radius: 10px; font-weight: 600; font-size: 1rem; text-decoration: none; cursor: pointer; background: transparent; border: 1px solid var(--borde); color: var(--tinta); transition: transform .3s var(--curva), border-color .3s, box-shadow .3s; }
+  .boton:hover { transform: translateY(-3px); border-color: var(--azul); }
+  .boton.principal { background: var(--azul); border-color: var(--azul); color: #fff; }
+  .boton.principal:hover { box-shadow: 0 10px 28px rgba(91, 140, 255, .4); }
+
+  /* Portada */
+  .portada { position: relative; padding: 80px 0 110px; background: radial-gradient(600px 400px at 85% 20%, rgba(91, 140, 255, .16), transparent 70%), radial-gradient(500px 360px at 5% 90%, rgba(61, 219, 176, .08), transparent 70%); }
+  .portada::before { content: ""; position: absolute; inset: 0; opacity: .35; pointer-events: none; background-image: linear-gradient(var(--borde) 1px, transparent 1px), linear-gradient(90deg, var(--borde) 1px, transparent 1px); background-size: 56px 56px; -webkit-mask-image: radial-gradient(ellipse at 70% 30%, #000, transparent 70%); mask-image: radial-gradient(ellipse at 70% 30%, #000, transparent 70%); }
+  .portada .contenedor { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+  .estado { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 26px; padding: 6px 14px; border: 1px solid var(--borde); border-radius: 999px; background: var(--panel); color: var(--suave); font-size: .9rem; }
+  .estado i { width: 8px; height: 8px; border-radius: 50%; background: var(--menta); animation: pulso 2s infinite; }
+  @keyframes pulso { 0% { box-shadow: 0 0 0 0 rgba(61, 219, 176, .6); } 100% { box-shadow: 0 0 0 10px rgba(61, 219, 176, 0); } }
+  .portada h1 { font-family: var(--titulos); font-weight: 800; font-size: clamp(2.8rem, 7vw, 5.2rem); line-height: 1; letter-spacing: -.03em; }
+  .portada h1 span { display: block; }
+  .portada h1 .linea2 { color: var(--azul); }
+  .portada p { max-width: 46ch; margin: 26px 0 34px; color: var(--suave); font-size: 1.15rem; }
+  .entra { opacity: 0; transform: translateY(28px); animation: entra .9s var(--curva) forwards; }
+  .e1 { animation-delay: .1s; } .e2 { animation-delay: .25s; } .e3 { animation-delay: .4s; } .e4 { animation-delay: .55s; }
+  @keyframes entra { to { opacity: 1; transform: none; } }
+
+  .escena { position: relative; height: 380px; animation: entra 1s .3s var(--curva) both; }
+  .capa { position: absolute; transition: transform .25s ease-out; }
+  .navegador { top: 20px; left: 0; width: 88%; height: 270px; background: var(--panel); border: 1px solid var(--borde); border-radius: 14px; overflow: hidden; box-shadow: 0 30px 60px rgba(0, 0, 0, .5); }
+  .barra { height: 34px; display: flex; gap: 7px; align-items: center; padding: 0 12px; background: var(--panel2); border-bottom: 1px solid var(--borde); }
+  .barra i { width: 10px; height: 10px; border-radius: 50%; background: #3a4660; }
+  .pagina { padding: 18px; display: grid; gap: 10px; }
+  .pagina b { display: block; height: 16px; width: 55%; background: var(--tinta); border-radius: 6px; opacity: .9; }
+  .pagina em { display: block; height: 8px; border-radius: 6px; background: var(--borde); }
+  .pagina em:nth-of-type(2) { width: 80%; }
+  .bloques { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px; }
+  .bloques u { height: 64px; border-radius: 10px; background: var(--azul); opacity: .85; animation: respira 4s ease-in-out infinite; }
+  .bloques u:nth-child(2) { background: var(--menta); animation-delay: .6s; }
+  .bloques u:nth-child(3) { background: var(--ambar); animation-delay: 1.2s; }
+  @keyframes respira { 50% { transform: translateY(-6px); } }
+  .celular { right: 0; bottom: 0; width: 140px; height: 270px; background: #05080f; border: 1px solid var(--borde); border-radius: 28px; padding: 9px; box-shadow: 0 30px 60px rgba(0, 0, 0, .6), 0 0 40px rgba(91, 140, 255, .15); }
+  .celular div { height: 100%; border-radius: 20px; background: var(--panel); padding: 16px 12px; display: grid; align-content: start; gap: 9px; }
+  .celular div b { height: 46px; border-radius: 12px; background: var(--azul); }
+  .celular div i { height: 26px; border-radius: 9px; background: var(--borde); }
+  .celular div i:nth-child(3) { background: var(--menta); opacity: .8; }
+
+  /* Secciones */
+  section { padding: 90px 0; }
+  h2 { font-family: var(--titulos); font-weight: 800; letter-spacing: -.02em; font-size: clamp(2rem, 4.5vw, 3rem); line-height: 1.05; margin-bottom: 14px; }
+  .intro { max-width: 58ch; color: var(--suave); font-size: 1.08rem; margin-bottom: 36px; }
+  .revela { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--curva), transform .8s var(--curva); }
+  .revela.visible { opacity: 1; transform: none; }
+
+  .sobre .contenedor { display: grid; grid-template-columns: 1.2fr .8fr; gap: 50px; align-items: start; }
+  .sobre p { color: var(--suave); font-size: 1.12rem; max-width: 56ch; }
+  .sobre p + p { margin-top: 16px; }
+  .datos { border: 1px solid var(--borde); border-radius: 16px; background: var(--panel); }
+  .datos div { display: flex; justify-content: space-between; gap: 16px; padding: 14px 20px; border-bottom: 1px solid var(--borde); font-size: .95rem; }
+  .datos div:last-child { border-bottom: 0; }
+  .datos dt { color: var(--suave); } .datos dd { text-align: right; font-weight: 500; }
+
+  .servicios { border-top: 1px solid var(--borde); }
+  .servicio { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; align-items: center; padding: 34px 8px; border-bottom: 1px solid var(--borde); transition: padding .4s var(--curva); }
+  .servicio::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--panel2); transform: translateY(101%); transition: transform .45s var(--curva); }
+  .servicio::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c); transform: scaleY(0); transition: transform .45s var(--curva); }
+  .servicio:hover, .servicio:focus-within { padding-left: 28px; }
+  .servicio:hover::before, .servicio:focus-within::before, .servicio:hover::after, .servicio:focus-within::after { transform: none; }
+  .servicio:nth-child(1) { --c: var(--azul); } .servicio:nth-child(2) { --c: var(--menta); } .servicio:nth-child(3) { --c: var(--ambar); }
+  .servicio h3 { font-family: var(--titulos); font-size: clamp(1.5rem, 3.3vw, 2.2rem); line-height: 1.1; }
+  .servicio p { color: var(--suave); max-width: 48ch; }
+
+  .proceso { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; counter-reset: paso; }
+  .paso { position: relative; padding: 24px; border: 1px solid var(--borde); border-radius: 16px; background: var(--panel); transition: transform .35s var(--curva), border-color .35s; }
+  .paso:hover { transform: translateY(-6px); border-color: var(--azul); }
+  .paso::before { counter-increment: paso; content: counter(paso); display: grid; place-items: center; width: 34px; height: 34px; margin-bottom: 16px; border-radius: 50%; background: var(--panel2); border: 1px solid var(--borde); color: var(--azul); font: 800 1rem var(--titulos); }
+  .paso h3 { font-family: var(--titulos); font-size: 1.25rem; margin-bottom: 6px; }
+  .paso p { color: var(--suave); font-size: .96rem; }
+
+  .grupos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .grupo { padding: 22px; border: 1px solid var(--borde); border-radius: 16px; background: var(--panel); }
+  .grupo h3 { font-family: var(--titulos); font-size: 1.1rem; margin-bottom: 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { padding: 6px 14px; border: 1px solid var(--borde); border-radius: 999px; background: var(--fondo); color: var(--suave); font-size: .9rem; transition: transform .3s var(--curva), border-color .25s, color .25s; }
+  .chip:hover { transform: translateY(-3px); border-color: var(--azul); color: var(--tinta); }
+
+  /* Proyectos */
+  .tabs { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 5px; margin-bottom: 28px; background: var(--panel); border: 1px solid var(--borde); border-radius: 12px; }
+  .tab { padding: 10px 20px; border: 0; border-radius: 8px; background: transparent; color: var(--suave); font-weight: 600; font-size: .95rem; cursor: pointer; transition: background .3s, color .3s; }
+  .tab:hover { color: var(--tinta); }
+  .tab[aria-selected="true"] { background: var(--azul); color: #fff; }
+  .caso { display: none; grid-template-columns: .85fr 1.15fr; gap: 40px; align-items: center; background: var(--panel); border: 1px solid var(--borde); border-radius: 20px; padding: 36px; }
+  .caso.activo { display: grid; animation: entra .6s var(--curva) both; }
+  .caso h3 { font-family: var(--titulos); font-size: clamp(1.7rem, 3.5vw, 2.3rem); line-height: 1.1; margin-bottom: 14px; }
+  .caso p { color: var(--suave); margin-bottom: 18px; }
+  .caso ul { list-style: none; display: grid; gap: 8px; margin-bottom: 22px; }
+  .caso li { position: relative; padding-left: 22px; }
+  .caso li::before { content: ""; position: absolute; left: 0; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+  .etiqueta { display: inline-block; margin-bottom: 16px; padding: 4px 12px; border: 1px solid var(--c); border-radius: 999px; color: var(--c); font-size: .85rem; font-weight: 600; }
+  .cifras { display: flex; gap: 26px; margin-bottom: 26px; padding: 14px 0; border-top: 1px solid var(--borde); border-bottom: 1px solid var(--borde); }
+  .cifras b { display: block; font: 800 1.6rem var(--titulos); color: var(--tinta); line-height: 1.1; }
+  .cifras span { color: var(--suave); font-size: .85rem; }
+  .escenario { display: flex; justify-content: center; align-items: center; min-height: 440px; padding: 24px; border: 1px solid var(--borde); border-radius: 16px; background: radial-gradient(circle at 50% 0, var(--panel2), var(--fondo)); }
+  .pista-texto { margin-top: 14px; color: var(--suave); font-size: .8rem; text-align: center; }
+  .mini-titulo { font-family: var(--titulos); font-weight: 800; font-size: 1.15rem; line-height: 1.2; }
+  .mini-texto { color: var(--suave); font-size: .85rem; }
+  .progreso { height: 6px; border-radius: 6px; background: var(--borde); overflow: hidden; }
+  .progreso span { display: block; height: 100%; width: 0; background: var(--menta); transition: width .5s var(--curva); }
+
+  /* Demo: tienda */
+  .navfake { position: relative; width: 100%; max-width: 450px; background: var(--fondo); border: 1px solid var(--borde); border-radius: 14px; overflow: hidden; box-shadow: 0 24px 50px rgba(0, 0, 0, .5); }
+  .url { margin-left: 10px; padding: 3px 14px; border-radius: 999px; background: var(--fondo); color: var(--suave); font-size: .78rem; }
+  .tienda { position: relative; padding: 16px; min-height: 380px; overflow: hidden; }
+  .tienda-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-family: var(--titulos); font-weight: 800; letter-spacing: .08em; }
+  .cuenta { padding: 6px 14px; border: 0; border-radius: 999px; background: var(--azul); color: #fff; font-weight: 600; font-size: .8rem; letter-spacing: 0; cursor: pointer; transition: transform .25s var(--curva); }
+  .cuenta:hover { transform: scale(1.05); }
+  .cuenta.salta { animation: salta .35s var(--curva); }
+  @keyframes salta { 40% { transform: scale(1.18); } }
+  .buscar, .campo { width: 100%; padding: 9px 12px; margin-bottom: 10px; border-radius: 10px; border: 1px solid var(--borde); background: var(--panel); color: var(--tinta); font-size: .88rem; transition: border-color .25s; }
+  .buscar:focus, .campo:focus { border-color: var(--azul); outline: 0; }
+  .filtros { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .filtro { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--borde); background: transparent; color: var(--suave); font-weight: 500; font-size: .78rem; cursor: pointer; transition: all .25s; }
+  .filtro:hover { color: var(--tinta); }
+  .filtro[aria-pressed="true"] { background: var(--azul); border-color: var(--azul); color: #fff; }
+  .prods { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+  .prod { display: flex; flex-direction: column; gap: 6px; padding: 10px; background: var(--panel); border: 1px solid var(--borde); border-radius: 12px; transition: border-color .3s, transform .3s var(--curva); }
+  .prod[hidden] { display: none; }
+  .prod.ani { animation: entra .45s var(--curva) both; }
+  .prod:hover { transform: translateY(-3px); border-color: var(--azul); }
+  .prod span { font-size: .85rem; font-weight: 600; line-height: 1.2; }
+  .prod small { color: var(--suave); font-size: .72rem; margin-top: -4px; }
+  .prod button { padding: 6px; border-radius: 8px; border: 1px solid var(--borde); background: transparent; color: var(--tinta); font-weight: 600; font-size: .78rem; cursor: pointer; transition: all .25s; }
+  .prod button:hover { border-color: var(--azul); }
+  .prod.en button { background: var(--menta); border-color: var(--menta); color: var(--fondo); }
+  .vacio { grid-column: 1 / -1; padding: 24px 0; text-align: center; color: var(--suave); font-size: .88rem; }
+  .cajon { position: absolute; top: 0; right: 0; bottom: 0; width: 72%; max-width: 280px; display: flex; flex-direction: column; padding: 16px; background: var(--panel); border-left: 1px solid var(--borde); box-shadow: -20px 0 40px rgba(0, 0, 0, .4); transform: translateX(105%); visibility: hidden; transition: transform .45s var(--curva), visibility 0s .45s; z-index: 2; }
+  .cajon.abierto { transform: none; visibility: visible; transition-delay: 0s; }
+  .cajon-cab { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-family: var(--titulos); font-weight: 800; }
+  .cerrar { width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--borde); background: transparent; color: var(--suave); cursor: pointer; }
+  .cerrar:hover { color: var(--tinta); border-color: var(--azul); }
+  .items { flex: 1; overflow-y: auto; display: grid; gap: 8px; align-content: start; }
+  .item { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 9px 10px; border: 1px solid var(--borde); border-radius: 10px; background: var(--panel2); font-size: .85rem; animation: entra .35s var(--curva) both; }
+  .item button { border: 0; background: transparent; color: var(--suave); cursor: pointer; font-size: 1rem; }
+  .item button:hover { color: var(--rojo); }
+  .aviso { position: absolute; left: 16px; right: 16px; bottom: 16px; padding: 10px 14px; border-radius: 10px; background: var(--tinta); color: var(--fondo); font-size: .8rem; font-weight: 600; transform: translateY(160%); transition: transform .4s var(--curva); z-index: 3; }
+  .aviso.ver { transform: none; }
+
+  /* Demo: panel de tareas */
+  .panel-app { width: 100%; max-width: 500px; padding: 18px; background: var(--fondo); border: 1px solid var(--borde); border-radius: 16px; box-shadow: 0 24px 50px rgba(0, 0, 0, .5); }
+  .panel-cab { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 12px; margin-bottom: 12px; }
+  .panel-der { display: flex; align-items: center; gap: 12px; }
+  .reiniciar { padding: 4px 12px; border: 1px solid var(--borde); border-radius: 8px; background: transparent; color: var(--suave); font-size: .78rem; font-weight: 600; cursor: pointer; transition: color .25s, border-color .25s; }
+  .reiniciar:hover { color: var(--tinta); border-color: var(--menta); }
+  .caso > div { min-width: 0; }
+  .col { transition: outline-color .2s, background .2s; outline: 2px dashed transparent; outline-offset: -2px; }
+  .col.sobre { outline-color: var(--menta); background: var(--panel2); }
+  .vacio-col { padding: 14px 0; text-align: center; color: var(--suave); font-size: .78rem; border: 1px dashed var(--borde); border-radius: 9px; }
+  .tarea { cursor: grab; }
+  .tarea.arrastrando { opacity: .4; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+  .stat { padding: 10px 12px; border: 1px solid var(--borde); border-radius: 10px; background: var(--panel); }
+  .stat b { display: block; font: 800 1.35rem var(--titulos); line-height: 1.1; }
+  .stat span { display: block; color: var(--suave); font-size: .75rem; line-height: 1.25; white-space: nowrap; }
+  .k-form { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 10px; }
+  .k-form input.campo { margin: 0; flex: 1 1 130px; min-width: 0; }
+  .k-form select.campo { margin: 0; width: auto; flex: 0 0 auto; }
+  .k-form button { min-height: 40px; }
+  .k-msg { min-height: 20px; margin-bottom: 8px; font-size: .8rem; color: var(--suave); }
+  .k-msg.error { color: var(--rojo); } .k-msg.ok { color: var(--menta); }
+  .campo.error { border-color: var(--rojo); }
+  .k-form button { padding: 0 14px; border: 0; border-radius: 10px; background: var(--menta); color: var(--fondo); font-weight: 700; font-size: .85rem; cursor: pointer; transition: transform .25s var(--curva); }
+  .k-form button:hover { transform: translateY(-2px); }
+  .kanban { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 10px; margin-top: 12px; }
+  .col { padding: 10px; background: var(--panel); border-radius: 12px; min-height: 180px; }
+  .col h4 { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: .8rem; color: var(--suave); }
+  .col h4 b { color: var(--tinta); }
+  .col-lista { display: grid; gap: 8px; align-content: start; }
+  .tarea { position: relative; padding: 9px 28px 9px 10px; border-radius: 9px; border: 1px solid var(--borde); background: var(--panel2); transition: border-color .25s, transform .25s var(--curva); }
+  .tarea:hover { border-color: var(--menta); transform: translateY(-2px); }
+  .tarea.nueva { animation: entra .45s var(--curva) both; }
+  .t-main { display: block; width: 100%; padding: 0; border: 0; background: transparent; color: var(--tinta); font-weight: 500; font-size: .8rem; text-align: left; cursor: pointer; }
+  .tarea.t2 .t-main { color: var(--suave); text-decoration: line-through; }
+  .prio { display: inline-block; margin-bottom: 4px; padding: 1px 8px; border-radius: 999px; font-size: .68rem; font-weight: 600; background: rgba(255, 255, 255, .06); color: var(--p); }
+  .t-del { position: absolute; top: 6px; right: 6px; width: 20px; height: 20px; border: 0; border-radius: 6px; background: transparent; color: var(--suave); cursor: pointer; line-height: 1; }
+  .t-del:hover { color: var(--rojo); background: rgba(255, 107, 122, .12); }
+
+  /* Demo: app móvil */
+  .tel { --ac: #5b8cff; width: 252px; height: 470px; padding: 10px; background: #05080f; border: 1px solid var(--borde); border-radius: 36px; box-shadow: 0 30px 60px rgba(0, 0, 0, .6), 0 0 50px rgba(91, 140, 255, .12); }
+  .tel-pant { display: flex; flex-direction: column; height: 100%; background: var(--panel); border-radius: 27px; overflow: hidden; }
+  .muesca { width: 70px; height: 7px; margin: 9px auto 0; border-radius: 7px; background: #05080f; }
+  .tel-cuerpo { position: relative; flex: 1; }
+  .vista { position: absolute; inset: 0; padding: 16px; opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .35s, transform .35s var(--curva); }
+  .vista.activa { opacity: 1; transform: none; pointer-events: auto; }
+  .racha { display: inline-block; margin-top: 6px; padding: 3px 12px; border-radius: 999px; background: var(--panel2); border: 1px solid var(--borde); color: var(--ac); font-size: .75rem; font-weight: 600; transition: color .3s; }
+  .anillo { position: relative; width: 104px; height: 104px; margin: 10px auto 12px; }
+  .anillo svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .anillo circle { fill: none; stroke-width: 9; }
+  .anillo-fondo { stroke: var(--borde); }
+  .anillo-valor { stroke: var(--ac); stroke-linecap: round; stroke-dasharray: 276.46; stroke-dashoffset: 276.46; transition: stroke-dashoffset .6s var(--curva), stroke .3s; }
+  .anillo-texto { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; line-height: 1.2; }
+  .anillo-texto b { font: 800 1.35rem var(--titulos); }
+  .anillo-texto span { color: var(--suave); font-size: .72rem; }
+  .habitos { display: grid; gap: 7px; }
+  .habito { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 11px; border-radius: 10px; border: 1px solid var(--borde); background: var(--panel2); color: var(--tinta); font-weight: 500; font-size: .83rem; text-align: left; cursor: pointer; transition: border-color .25s, color .25s; }
+  .habito i { width: 16px; height: 16px; flex: none; border: 2px solid var(--suave); border-radius: 50%; display: grid; place-items: center; font-size: .65rem; font-style: normal; transition: all .25s; }
+  .habito.hecho { color: var(--suave); border-color: var(--ac); }
+  .habito.hecho i { background: var(--ac); border-color: var(--ac); color: var(--fondo); }
+  .barras { display: flex; align-items: flex-end; gap: 8px; height: 180px; margin-top: 18px; }
+  .bcol { flex: 1; height: 100%; padding: 0; border: 0; background: transparent; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; color: var(--suave); font-size: .72rem; cursor: pointer; }
+  .bcol div { width: 100%; border-radius: 6px 6px 0 0; background: var(--ac); opacity: .5; transition: height .6s var(--curva), opacity .25s, background .3s; }
+  .bcol:hover div, .bcol.sel div { opacity: 1; }
+  .info-dia { margin-top: 14px; padding: 10px 12px; border-radius: 10px; background: var(--panel2); font-size: .82rem; }
+  .interruptor { display: flex; align-items: center; gap: 10px; margin-top: 18px; cursor: pointer; }
+  .interruptor input { position: absolute; opacity: 0; }
+  .pista { width: 44px; height: 24px; flex: none; position: relative; border-radius: 24px; background: var(--borde); transition: background .3s; }
+  .pista::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--tinta); transition: transform .3s var(--curva); }
+  .interruptor input:checked + .pista { background: var(--ac); }
+  .interruptor input:checked + .pista::after { transform: translateX(20px); }
+  .interruptor input:focus-visible + .pista { outline: 2px solid var(--azul); outline-offset: 3px; }
+  .colores { display: flex; gap: 12px; margin-top: 10px; }
+  .colores button { width: 34px; height: 34px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: transform .25s var(--curva), border-color .25s; }
+  .colores button:hover { transform: scale(1.12); }
+  .colores button[aria-pressed="true"] { border-color: var(--tinta); }
+  .tel-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 8px; border-top: 1px solid var(--borde); }
+  .tel-nav button { padding: 9px 0; border: 0; border-radius: 9px; background: transparent; color: var(--suave); font-weight: 600; font-size: .8rem; cursor: pointer; transition: background .25s, color .25s; }
+  .tel-nav button.activa { background: var(--panel2); color: var(--ac); }
+
+  /* Contacto */
+  .contacto { background: linear-gradient(180deg, var(--panel), var(--fondo)); border-top: 1px solid var(--borde); }
+  .contacto .caja { max-width: 640px; }
+  .contacto p { color: var(--suave); margin-bottom: 26px; font-size: 1.1rem; }
+  .correo { display: block; margin-bottom: 20px; font-family: var(--titulos); font-weight: 800; font-size: clamp(1.3rem, 3.5vw, 2rem); text-decoration: none; color: var(--azul); word-break: break-all; transition: color .3s; }
+  .correo:hover { color: var(--menta); }
+  footer { background: var(--fondo); border-top: 1px solid var(--borde); color: #6b758d; font-size: .92rem; }
+  footer .contenedor { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 26px; padding-bottom: 34px; }
+  footer a { text-decoration: none; margin-left: 18px; transition: color .25s; }
+  footer a:hover { color: var(--tinta); }
+
+  @media (max-width: 820px) {
+    .portada .contenedor, .sobre .contenedor { grid-template-columns: 1fr; }
+    .escena { height: 340px; max-width: 460px; }
+    .servicio { grid-template-columns: 1fr; gap: 8px; }
+    .caso { grid-template-columns: 1fr; padding: 22px; gap: 26px; }
+    .escenario { min-height: 0; padding: 16px; }
+    nav ul { gap: 16px; }
+    footer a { margin: 0 18px 0 0; }
+    .buscar, .campo { font-size: 16px; }
+    .stat { padding: 8px 9px; }
+    .stat span { font-size: .68rem; }
+    .panel-app { padding: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+    .entra, .revela { opacity: 1; transform: none; }
+  }
+</style>
 </head>
 <body>
+<div id="scroll"></div>
 
-  <header>
-    <h1>Edson Alejandro Barrena Terán</h1>
-    <p>Diseño y programo páginas web, apps y aplicaciones móviles.</p>
-  </header>
+<nav>
+  <div class="contenedor">
+    <a class="logo" href="#inicio">Edson Barrena</a>
+    <ul>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
 
-  <section>
-    <h2>Sobre mí</h2>
-    <p>
-      Hola, soy Edson. Me apasiona crear soluciones digitales: desde el diseño
-      visual hasta el código que las hace funcionar.
-    </p>
-  </section>
-
-  <section>
-    <h2>Lo que hago</h2>
-    <div class="servicios">
-      <div class="tarjeta">
-        <h3>🎨 Diseño</h3>
-        <p>Interfaces atractivas, claras y fáciles de usar.</p>
-      </div>
-      <div class="tarjeta">
-        <h3>💻 Desarrollo web</h3>
-        <p>Páginas web modernas, rápidas y adaptables a cualquier pantalla.</p>
-      </div>
-      <div class="tarjeta">
-        <h3>📱 Apps móviles</h3>
-        <p>Aplicaciones para celular y otras plataformas.</p>
+<header class="portada" id="inicio">
+  <div class="contenedor">
+    <div>
+      <div class="estado entra e1"><i></i>Disponible para nuevos proyectos</div>
+      <h1 class="entra e2"><span>Diseño y</span><span class="linea2">programo.</span></h1>
+      <p class="entra e3">Soy Edson Alejandro Barrena Terán. Creo páginas web, apps y aplicaciones para celular, desde el diseño hasta el código.</p>
+      <div class="botones entra e4">
+        <a class="boton principal" href="#proyectos">Ver proyectos</a>
+        <a class="boton" href="#contacto">Escríbeme</a>
       </div>
     </div>
-  </section>
+    <div class="escena" id="escena" aria-hidden="true">
+      <div class="capa navegador" data-mover="12">
+        <div class="barra"><i></i><i></i><i></i></div>
+        <div class="pagina"><b></b><em></em><em></em><div class="bloques"><u></u><u></u><u></u></div></div>
+      </div>
+      <div class="capa celular" data-mover="-22"><div><b></b><i></i><i></i><i></i></div></div>
+    </div>
+  </div>
+</header>
 
-  <section>
-    <h2>Proyectos</h2>
-    <p>Próximamente aquí aparecerán mis proyectos.</p>
-  </section>
+<section class="sobre revela">
+  <div class="contenedor">
+    <div>
+      <h2>Sobre mí</h2>
+      <p>Me gusta convertir ideas en productos que se pueden usar. Diseño las pantallas, escribo el código y publico el resultado, para que una página o una app funcione bien y se vea bien en cualquier dispositivo.</p>
+      <p>Trabajo en tres frentes: diseño de interfaces, páginas web y aplicaciones, tanto web como para celular.</p>
+    </div>
+    <dl class="datos">
+      <div><dt>Nombre</dt><dd>Edson Alejandro Barrena Terán</dd></div>
+      <div><dt>Especialidad</dt><dd>Diseño y desarrollo</dd></div>
+      <div><dt>Plataformas</dt><dd>Web y móvil</dd></div>
+      <div><dt>Estado</dt><dd>Disponible</dd></div>
+    </dl>
+  </div>
+</section>
 
-  <section>
-    <h2>Contacto</h2>
-    <p>
-      Correo: <a href="mailto:edson.alejandro.bt@gmail.com">edson.alejandro.bt@gmail.com</a><br>
-      GitHub: <a href="https://github.com/edsonteran">github.com/edsonteran</a>
-    </p>
-  </section>
+<section id="servicios" class="revela">
+  <div class="contenedor">
+    <h2>Lo que hago</h2>
+    <p class="intro">Puedo encargarme de todo el proceso o solo de la parte que necesites.</p>
+    <div class="servicios">
+      <div class="servicio" tabindex="0"><h3>Diseño</h3><p>Interfaces claras y atractivas, pensadas para que cualquier persona sepa qué hacer en cada pantalla.</p></div>
+      <div class="servicio" tabindex="0"><h3>Páginas web</h3><p>Sitios rápidos y adaptables a computadora, tablet y celular.</p></div>
+      <div class="servicio" tabindex="0"><h3>Apps y aplicaciones móviles</h3><p>Aplicaciones para celular y otras plataformas, desde la idea hasta que se pueden usar.</p></div>
+    </div>
+  </div>
+</section>
 
-  <footer>
-    © 2026 Edson Barrena. Todos los derechos reservados.
-  </footer>
+<section id="proyectos" class="revela">
+  <div class="contenedor">
+    <h2>Proyectos y ejemplos</h2>
+    <p class="intro">Tres demos interactivas de lo que puedo construir. Pruébalas.</p>
+    <div class="tabs" role="tablist" aria-label="Tipo de proyecto">
+      <button class="tab" role="tab" type="button" id="tab-web" aria-controls="caso-web" aria-selected="true">Páginas web</button>
+      <button class="tab" role="tab" type="button" id="tab-apps" aria-controls="caso-apps" aria-selected="false">Apps web</button>
+      <button class="tab" role="tab" type="button" id="tab-movil" aria-controls="caso-movil" aria-selected="false">Apps móviles</button>
+    </div>
 
+    <article class="caso activo" id="caso-web" role="tabpanel" aria-labelledby="tab-web" style="--c: var(--azul)">
+      <div>
+        <span class="etiqueta">Demo interactiva</span>
+        <h3>Tienda en línea</h3>
+        <p>Un ejemplo de página web para vender productos: catálogo con filtros, buscador y una cotización que se arma al instante.</p>
+        <ul>
+          <li>Filtros por categoría y buscador</li>
+          <li>Cotización con lista de productos y contador</li>
+          <li>Diseño adaptable a computadora y celular</li>
+        </ul>
+      </div>
+      <div>
+        <div class="escenario" style="min-height: 0">
+          <div class="navfake">
+            <div class="barra"><i></i><i></i><i></i><span class="url">tu-tienda.com</span></div>
+            <div class="tienda">
+              <div class="tienda-top"><span>TIENDA</span><button type="button" class="cuenta" id="t-cuenta" aria-expanded="false">Cotización 0</button></div>
+              <input class="buscar" id="t-buscar" type="search" placeholder="Buscar producto" aria-label="Buscar producto">
+              <div class="filtros" id="t-filtros"></div>
+              <div class="prods" id="t-grid"></div>
+              <aside class="cajon" id="t-cajon" aria-label="Tu cotización">
+                <div class="cajon-cab"><span>Tu cotización</span><button type="button" class="cerrar" id="t-cerrar" aria-label="Cerrar cotización">&times;</button></div>
+                <div class="items" id="t-items"></div>
+                <button type="button" class="boton principal" id="t-enviar" style="margin-top:12px;padding:11px">Solicitar por WhatsApp</button>
+              </aside>
+              <div class="aviso" id="t-aviso" role="status"></div>
+            </div>
+          </div>
+        </div>
+        <p class="pista-texto">Vista de ejemplo interactiva. Filtra, busca, agrega productos y abre la cotización.</p>
+      </div>
+    </article>
+
+    <article class="caso" id="caso-apps" role="tabpanel" aria-labelledby="tab-apps" style="--c: var(--menta)">
+      <div>
+        <span class="etiqueta">Demo interactiva</span>
+        <h3>Panel de tareas</h3>
+        <p>Un ejemplo de aplicación web para organizar el trabajo de un equipo: tablero por columnas, prioridades y progreso en tiempo real.</p>
+        <ul>
+          <li>Arrastra una tarea a otra columna, o tócala para avanzarla</li>
+          <li>Asigna prioridad y filtra por ella</li>
+          <li>Los contadores y el progreso se actualizan solos</li>
+        </ul>
+      </div>
+      <div class="escenario">
+        <div class="panel-app">
+          <div class="panel-cab"><span class="mini-titulo">Mi proyecto</span><div class="panel-der"><span class="mini-texto" id="k-pct" aria-live="polite">0%</span><button type="button" class="reiniciar" id="k-reset">Restablecer</button></div></div>
+          <div class="stats">
+            <div class="stat"><b id="k-n0">0</b><span>Por hacer</span></div>
+            <div class="stat"><b id="k-n1">0</b><span>En curso</span></div>
+            <div class="stat"><b id="k-n2">0</b><span>Hechas</span></div>
+          </div>
+          <div class="progreso"><span id="k-barra"></span></div>
+          <form class="k-form" id="k-form">
+            <input class="campo" id="k-input" type="text" maxlength="36" placeholder="Nueva tarea" aria-label="Nueva tarea">
+            <select class="campo" id="k-prio" aria-label="Prioridad"><option>Alta</option><option selected>Media</option><option>Baja</option></select>
+            <button type="submit">Agregar</button>
+          </form>
+          <div class="k-msg" id="k-msg" role="status"></div>
+          <div class="filtros" id="k-filtros"></div>
+          <div class="kanban">
+            <div class="col"><h4>Por hacer</h4><div class="col-lista" id="k-c0"></div></div>
+            <div class="col"><h4>En curso</h4><div class="col-lista" id="k-c1"></div></div>
+            <div class="col"><h4>Hecho</h4><div class="col-lista" id="k-c2"></div></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="caso" id="caso-movil" role="tabpanel" aria-labelledby="tab-movil" style="--c: var(--ambar)">
+      <div>
+        <span class="etiqueta">Demo interactiva</span>
+        <h3>Hábitos diarios</h3>
+        <p>Un ejemplo de app para celular: seguimiento de hábitos con progreso circular, estadísticas semanales y ajustes personalizables.</p>
+        <ul>
+          <li>Marca hábitos y mira avanzar el círculo y la racha</li>
+          <li>Toca una barra para ver el detalle de cada día</li>
+          <li>En Perfil cambia tu nombre y el color de la app</li>
+        </ul>
+      </div>
+      <div class="escenario">
+        <div class="tel" id="tel">
+          <div class="tel-pant">
+            <div class="muesca"></div>
+            <div class="tel-cuerpo">
+              <div class="vista activa" id="v-hoy">
+                <div class="mini-titulo" id="saludo">Hola, Edson</div>
+                <span class="racha" id="racha">Racha: 6 días</span>
+                <div class="anillo">
+                  <svg viewBox="0 0 110 110" aria-hidden="true"><circle cx="55" cy="55" r="44" class="anillo-fondo"/><circle cx="55" cy="55" r="44" class="anillo-valor" id="anillo"/></svg>
+                  <div class="anillo-texto"><b id="anillo-n">0/4</b><span>hábitos</span></div>
+                </div>
+                <div class="habitos" id="habitos"></div>
+              </div>
+              <div class="vista" id="v-semana">
+                <div class="mini-titulo">Esta semana</div>
+                <div class="mini-texto">Toca una barra para ver el día</div>
+                <div class="barras" id="barras"></div>
+                <div class="info-dia" id="info-dia">Domingo: 0 de 4 hábitos</div>
+              </div>
+              <div class="vista" id="v-perfil">
+                <div class="mini-titulo">Perfil</div>
+                <label class="mini-texto" for="nombre" style="display:block;margin-top:14px">Tu nombre</label>
+                <input class="campo" id="nombre" type="text" maxlength="14" value="Edson" style="margin-top:6px">
+                <label class="interruptor">
+                  <input type="checkbox" id="recordar"><span class="pista"></span>
+                  <span class="mini-texto" id="recordar-texto">Recordatorios apagados</span>
+                </label>
+                <div class="mini-texto" style="margin-top:20px">Color de la app</div>
+                <div class="colores" id="colores"></div>
+              </div>
+            </div>
+            <div class="tel-nav" role="tablist">
+              <button type="button" class="activa" data-v="v-hoy" role="tab" aria-selected="true">Hoy</button>
+              <button type="button" data-v="v-semana" role="tab" aria-selected="false">Semana</button>
+              <button type="button" data-v="v-perfil" role="tab" aria-selected="false">Perfil</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="revela">
+  <div class="contenedor">
+    <h2>Cómo trabajo</h2>
+    <p class="intro">Un proceso simple, con avances claros en cada etapa.</p>
+    <div class="proceso">
+      <div class="paso"><h3>Idea</h3><p>Hablamos de lo que necesitas y definimos qué se va a construir.</p></div>
+      <div class="paso"><h3>Diseño</h3><p>Preparo las pantallas para que las apruebes antes de programar.</p></div>
+      <div class="paso"><h3>Desarrollo</h3><p>Escribo el código y lo pruebo en computadora y celular.</p></div>
+      <div class="paso"><h3>Publicación</h3><p>Lo dejo en línea y funcionando, listo para usarse.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="revela">
+  <div class="contenedor">
+    <h2>Herramientas</h2>
+    <p class="intro">Con lo que diseño y construyo.</p>
+    <div class="grupos">
+      <div class="grupo"><h3>Diseño</h3><div class="chips"><span class="chip">Figma</span><span class="chip">Prototipos</span><span class="chip">Diseño de interfaces</span></div></div>
+      <div class="grupo"><h3>Desarrollo web</h3><div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">GitHub Pages</span></div></div>
+      <div class="grupo"><h3>Apps móviles</h3><div class="chips"><span class="chip">Apps para celular</span><span class="chip">Git y GitHub</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="contacto revela" id="contacto">
+  <div class="contenedor">
+    <div class="caja">
+      <h2>¿Tienes una idea?</h2>
+      <p>Cuéntame qué quieres crear y vemos cómo hacerlo realidad.</p>
+      <a class="correo" href="mailto:edson.alejandro.bt@gmail.com">edson.alejandro.bt@gmail.com</a>
+      <div class="botones">
+        <a class="boton principal" href="mailto:edson.alejandro.bt@gmail.com">Enviar correo</a>
+        <button class="boton" type="button" id="copiar">Copiar correo</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="contenedor">
+    <span>© 2026 Edson Barrena. Todos los derechos reservados.</span>
+    <span><a href="#servicios">Servicios</a><a href="#proyectos">Proyectos</a><a href="#contacto">Contacto</a></span>
+  </div>
+</footer>
+
+<script>
+  var $ = function (id) { return document.getElementById(id); };
+  function reiniciar(el, clase) { el.classList.remove(clase); void el.offsetWidth; el.classList.add(clase); }
+
+  // Barra de avance al hacer scroll
+  var barraScroll = $('scroll');
+  window.addEventListener('scroll', function () {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    barraScroll.style.transform = 'scaleX(' + (h > 0 ? window.scrollY / h : 0) + ')';
+  }, { passive: true });
+
+  // Aparición de secciones
+  var items = document.querySelectorAll('.revela');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    items.forEach(function (el) { obs.observe(el); });
+  } else { items.forEach(function (el) { el.classList.add('visible'); }); }
+
+  // Portada con movimiento
+  var capas = document.querySelectorAll('#escena [data-mover]');
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.addEventListener('mousemove', function (ev) {
+      var x = ev.clientX / window.innerWidth - 0.5, y = ev.clientY / window.innerHeight - 0.5;
+      capas.forEach(function (c) { var f = parseFloat(c.dataset.mover); c.style.transform = 'translate(' + (x * f) + 'px,' + (y * f) + 'px)'; });
+    });
+  }
+
+  // Copiar correo
+  $('copiar').addEventListener('click', function () {
+    var b = this, correo = 'edson.alejandro.bt@gmail.com';
+    function listo() { b.textContent = 'Copiado'; setTimeout(function () { b.textContent = 'Copiar correo'; }, 1800); }
+    if (navigator.clipboard) { navigator.clipboard.writeText(correo).then(listo, function () { b.textContent = correo; }); }
+    else { b.textContent = correo; }
+  });
+
+  // Pestañas de proyectos
+  (function () {
+    var tabs = document.querySelectorAll('.tab'), casos = document.querySelectorAll('.caso');
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        tabs.forEach(function (x) { x.setAttribute('aria-selected', x === t); });
+        casos.forEach(function (c) { c.classList.toggle('activo', c.id === t.getAttribute('aria-controls')); });
+      });
+    });
+  })();
+
+  // Demo: tienda
+  (function () {
+    var prods = [['Producto 1', 'c1', 'Categoría 1'], ['Producto 2', 'c1', 'Categoría 1'], ['Producto 3', 'c1', 'Categoría 1'],
+                 ['Producto 4', 'c2', 'Categoría 2'], ['Producto 5', 'c2', 'Categoría 2'], ['Producto 6', 'c2', 'Categoría 2'],
+                 ['Producto 7', 'c3', 'Categoría 3'], ['Producto 8', 'c3', 'Categoría 3']];
+    var cats = [['todo', 'Todo'], ['c1', 'Categoría 1'], ['c2', 'Categoría 2'], ['c3', 'Categoría 3']];
+    var fil = $('t-filtros'), grid = $('t-grid'), cuenta = $('t-cuenta'), cajon = $('t-cajon'), lista = $('t-items'), aviso = $('t-aviso'), buscar = $('t-buscar');
+    var cat = 'todo', sel = [], vacio = document.createElement('div'), timer;
+    vacio.className = 'vacio'; vacio.textContent = 'No hay productos con ese filtro.'; vacio.hidden = true; grid.appendChild(vacio);
+
+    function mostrar(msg) { aviso.textContent = msg; aviso.classList.add('ver'); clearTimeout(timer); timer = setTimeout(function () { aviso.classList.remove('ver'); }, 2400); }
+    function filtrar() {
+      var q = buscar.value.trim().toLowerCase(), hay = 0;
+      grid.querySelectorAll('.prod').forEach(function (p) {
+        var ok = (cat === 'todo' || p.dataset.cat === cat) && p.dataset.nom.toLowerCase().indexOf(q) !== -1;
+        p.hidden = !ok; if (ok) { hay++; reiniciar(p, 'ani'); }
+      });
+      vacio.hidden = hay > 0;
+    }
+    function pintarCotizacion() {
+      cuenta.textContent = 'Cotización ' + sel.length; reiniciar(cuenta, 'salta');
+      lista.textContent = '';
+      if (!sel.length) { var v = document.createElement('div'); v.className = 'mini-texto'; v.textContent = 'Aún no agregas productos.'; lista.appendChild(v); }
+      sel.forEach(function (n) {
+        var it = document.createElement('div'); it.className = 'item';
+        var t = document.createElement('span'); t.textContent = n;
+        var x = document.createElement('button'); x.type = 'button'; x.innerHTML = '&times;'; x.setAttribute('aria-label', 'Quitar ' + n);
+        x.addEventListener('click', function () { quitar(n); });
+        it.appendChild(t); it.appendChild(x); lista.appendChild(it);
+      });
+    }
+    function alternar(n, card) {
+      var i = sel.indexOf(n);
+      if (i === -1) sel.push(n); else sel.splice(i, 1);
+      card.classList.toggle('en', i === -1); card.querySelector('button').textContent = i === -1 ? 'Agregado \u2713' : 'Agregar';
+      pintarCotizacion();
+    }
+    function quitar(n) { grid.querySelectorAll('.prod').forEach(function (c) { if (c.dataset.nom === n) alternar(n, c); }); }
+
+    cats.forEach(function (c, i) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'filtro'; b.textContent = c[1]; b.setAttribute('aria-pressed', i === 0);
+      b.addEventListener('click', function () { cat = c[0]; fil.querySelectorAll('.filtro').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); filtrar(); });
+      fil.appendChild(b);
+    });
+    prods.forEach(function (p) {
+      var d = document.createElement('div'); d.className = 'prod'; d.dataset.cat = p[1]; d.dataset.nom = p[0];
+      var nom = document.createElement('span'); nom.textContent = p[0];
+      var sm = document.createElement('small'); sm.textContent = p[2];
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = 'Agregar';
+      b.addEventListener('click', function () { alternar(p[0], d); });
+      d.appendChild(nom); d.appendChild(sm); d.appendChild(b); grid.insertBefore(d, vacio);
+    });
+    buscar.addEventListener('input', filtrar);
+    cuenta.addEventListener('click', function () { var a = cajon.classList.toggle('abierto'); cuenta.setAttribute('aria-expanded', a); });
+    $('t-cerrar').addEventListener('click', function () { cajon.classList.remove('abierto'); cuenta.setAttribute('aria-expanded', 'false'); });
+    $('t-enviar').addEventListener('click', function () {
+      mostrar(sel.length ? 'En el sitio real, esto abre WhatsApp con tu lista.' : 'Agrega al menos un producto.');
+    });
+    pintarCotizacion();
+  })();
+
+  // Demo: panel de tareas
+  (function () {
+    function inicial() {
+      return [
+        { t: 'Diseñar la interfaz', c: 2, p: 'Alta' }, { t: 'Programar el login', c: 1, p: 'Alta' },
+        { t: 'Conectar la base de datos', c: 0, p: 'Media' }, { t: 'Probar en celular', c: 0, p: 'Baja' }
+      ];
+    }
+    var tareas = inicial(), filtro = 'Todas', arrastrada = null, foco = null;
+    var colores = { Alta: '#ff6b7a', Media: '#f2b84b', Baja: '#3ddbb0' };
+    var cols = [0, 1, 2].map(function (i) { return $('k-c' + i); }), fil = $('k-filtros');
+
+    function pintar() {
+      cols.forEach(function (c) { c.textContent = ''; });
+      var cuentas = [0, 0, 0], visibles = [0, 0, 0], enfocar = null;
+      tareas.forEach(function (x) {
+        cuentas[x.c]++;
+        if (filtro !== 'Todas' && x.p !== filtro) return;
+        visibles[x.c]++;
+        var card = document.createElement('div'); card.className = 'tarea t' + x.c + (x.nueva ? ' nueva' : ''); card.draggable = true; x.nueva = false;
+        var pr = document.createElement('span'); pr.className = 'prio'; pr.textContent = x.p; pr.style.setProperty('--p', colores[x.p]);
+        var b = document.createElement('button'); b.type = 'button'; b.className = 't-main'; b.textContent = x.t;
+        b.setAttribute('aria-label', x.t + (x.c < 2 ? ': pasar a la siguiente columna' : ': volver a Por hacer'));
+        b.addEventListener('click', function (e) { x.c = (x.c + 1) % 3; x.nueva = true; if (e.detail === 0) foco = x; pintar(); });
+        var d = document.createElement('button'); d.type = 'button'; d.className = 't-del'; d.innerHTML = '&times;'; d.setAttribute('aria-label', 'Eliminar ' + x.t);
+        d.addEventListener('click', function (e) { tareas.splice(tareas.indexOf(x), 1); if (e.detail === 0) foco = 'entrada'; pintar(); });
+        card.addEventListener('dragstart', function (e) {
+          arrastrada = x; card.classList.add('arrastrando'); e.dataTransfer.effectAllowed = 'move';
+          try { e.dataTransfer.setData('text/plain', x.t); } catch (err) {}
+        });
+        card.addEventListener('dragend', function () {
+          arrastrada = null; card.classList.remove('arrastrando');
+          document.querySelectorAll('.col.sobre').forEach(function (c) { c.classList.remove('sobre'); });
+        });
+        card.appendChild(pr); card.appendChild(b); card.appendChild(d); cols[x.c].appendChild(card);
+        if (foco === x) enfocar = b;
+      });
+      cols.forEach(function (c, i) {
+        if (!visibles[i]) { var v = document.createElement('div'); v.className = 'vacio-col'; v.textContent = 'Sin tareas'; c.appendChild(v); }
+      });
+      cuentas.forEach(function (v, i) { $('k-n' + i).textContent = v; });
+      var pct = tareas.length ? Math.round(cuentas[2] / tareas.length * 100) : 0;
+      $('k-pct').textContent = pct + '% completado'; $('k-barra').style.width = pct + '%';
+      if (enfocar) enfocar.focus(); else if (foco === 'entrada') $('k-input').focus();
+      foco = null;
+    }
+    var temp;
+    function mensaje(t, tipo) {
+      var m = $('k-msg'); m.textContent = t; m.className = 'k-msg ' + tipo;
+      clearTimeout(temp); temp = setTimeout(function () { m.textContent = ''; m.className = 'k-msg'; }, 2200);
+    }
+    function setFiltro(n) {
+      filtro = n;
+      fil.querySelectorAll('.filtro').forEach(function (x) { x.setAttribute('aria-pressed', x.textContent === n); });
+    }
+    ['Todas', 'Alta', 'Media', 'Baja'].forEach(function (n, i) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'filtro'; b.textContent = n; b.setAttribute('aria-pressed', i === 0);
+      b.addEventListener('click', function () { setFiltro(n); pintar(); });
+      fil.appendChild(b);
+    });
+    document.querySelectorAll('#caso-apps .col').forEach(function (col, i) {
+      col.addEventListener('dragover', function (e) { if (!arrastrada) return; e.preventDefault(); col.classList.add('sobre'); });
+      col.addEventListener('dragleave', function (e) { if (!col.contains(e.relatedTarget)) col.classList.remove('sobre'); });
+      col.addEventListener('drop', function (e) {
+        e.preventDefault(); col.classList.remove('sobre');
+        if (arrastrada && arrastrada.c !== i) { arrastrada.c = i; arrastrada.nueva = true; }
+        arrastrada = null; pintar();
+      });
+    });
+    $('k-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var inp = $('k-input'), v = inp.value.trim(), pr = $('k-prio').value;
+      if (!v) { inp.classList.add('error'); mensaje('Escribe el nombre de la tarea.', 'error'); inp.focus(); return; }
+      if (filtro !== 'Todas' && filtro !== pr) setFiltro('Todas');
+      tareas.push({ t: v, c: 0, p: pr, nueva: true }); inp.value = ''; pintar();
+      mensaje('Tarea agregada a Por hacer.', 'ok'); inp.focus();
+    });
+    $('k-input').addEventListener('input', function () { this.classList.remove('error'); });
+    $('k-reset').addEventListener('click', function () {
+      tareas = inicial(); setFiltro('Todas'); $('k-input').value = ''; $('k-input').classList.remove('error'); pintar();
+    });
+    pintar();
+  })();
+
+  // Demo: app móvil
+  (function () {
+    var tel = $('tel'), nombres = ['Beber agua', 'Hacer ejercicio', 'Leer 10 minutos', 'Dormir 8 horas'], estado = [true, false, false, false];
+    var dias = [['L', 'Lunes'], ['M', 'Martes'], ['X', 'Miércoles'], ['J', 'Jueves'], ['V', 'Viernes'], ['S', 'Sábado'], ['D', 'Domingo']], previos = [3, 4, 2, 4, 3, 2];
+    var hoyBarra;
+    function total() { return estado.filter(Boolean).length; }
+    function actualizar() {
+      var n = total();
+      $('anillo').style.strokeDashoffset = 276.46 * (1 - n / 4); $('anillo-n').textContent = n + '/4';
+      hoyBarra.style.height = (n / 4 * 100) + '%';
+      var r = 6 + (n === 4 ? 1 : 0); $('racha').textContent = 'Racha: ' + r + ' días';
+      $('info-dia').textContent = 'Domingo: ' + n + ' de 4 hábitos';
+    }
+    dias.forEach(function (d, i) {
+      var col = document.createElement('button'); col.type = 'button'; col.className = 'bcol' + (i === 6 ? ' sel' : ''); col.setAttribute('aria-label', d[1]);
+      var bar = document.createElement('div'); bar.style.height = (i === 6 ? 0 : previos[i] / 4 * 100) + '%';
+      var et = document.createElement('span'); et.textContent = d[0];
+      col.appendChild(bar); col.appendChild(et); $('barras').appendChild(col);
+      if (i === 6) hoyBarra = bar;
+      col.addEventListener('click', function () {
+        $('barras').querySelectorAll('.bcol').forEach(function (x) { x.classList.remove('sel'); }); col.classList.add('sel');
+        $('info-dia').textContent = d[1] + ': ' + (i === 6 ? total() : previos[i]) + ' de 4 hábitos';
+      });
+    });
+    nombres.forEach(function (nom, i) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'habito';
+      var ic = document.createElement('i'), t = document.createElement('span'); t.textContent = nom; b.appendChild(ic); b.appendChild(t);
+      function marcar() { b.classList.toggle('hecho', estado[i]); ic.textContent = estado[i] ? '\u2713' : ''; }
+      marcar(); b.addEventListener('click', function () { estado[i] = !estado[i]; marcar(); actualizar(); });
+      $('habitos').appendChild(b);
+    });
+    setTimeout(actualizar, 300);
+
+    tel.querySelectorAll('.tel-nav button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        tel.querySelectorAll('.tel-nav button').forEach(function (x) { x.classList.remove('activa'); x.setAttribute('aria-selected', 'false'); });
+        tel.querySelectorAll('.vista').forEach(function (v) { v.classList.remove('activa'); });
+        b.classList.add('activa'); b.setAttribute('aria-selected', 'true'); $(b.dataset.v).classList.add('activa');
+      });
+    });
+    $('nombre').addEventListener('input', function (e) { $('saludo').textContent = 'Hola, ' + (e.target.value.trim() || 'tú'); });
+    $('recordar').addEventListener('change', function (e) { $('recordar-texto').textContent = e.target.checked ? 'Recordatorios activos' : 'Recordatorios apagados'; });
+    [['Azul', '#5b8cff'], ['Menta', '#3ddbb0'], ['Ámbar', '#f2b84b'], ['Rosa', '#ff6b9a']].forEach(function (c, i) {
+      var b = document.createElement('button'); b.type = 'button'; b.style.background = c[1]; b.setAttribute('aria-label', 'Color ' + c[0]); b.setAttribute('aria-pressed', i === 0);
+      b.addEventListener('click', function () { tel.style.setProperty('--ac', c[1]); $('colores').querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); });
+      $('colores').appendChild(b);
+    });
+  })();
+</script>
 </body>
 </html>
